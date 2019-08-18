@@ -9,9 +9,11 @@ import { Counter } from './components/Counter';
 useModule
     .epic()
     // Listen for `count` and dispatch `countDone` with 500ms delay
-    .on(CounterActions.startCount, () =>
+    .on(CounterActions.incrCount, () =>
         Rx.of(CounterActions.countDone(1)).pipe(Rx.delay(500))
-    );
+    )
+    .on(CounterActions.decrCount, () =>
+    Rx.of(CounterActions.countDone(-1)).pipe(Rx.delay(500)));
 
 const initialState: CounterState = {
     isLoading: false,
@@ -23,7 +25,10 @@ const initialState: CounterState = {
 // Under the hood it uses `immer` and state mutations are allowed
 useModule
     .reducer(initialState)
-    .on(CounterActions.startCount, state => {
+    .on(CounterActions.incrCount, state => {
+        state.isLoading = true;
+    })
+    .on(CounterActions.decrCount, state => {
         state.isLoading = true;
     })
     .on(CounterActions.countDone, (state, { count }) => {

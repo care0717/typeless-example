@@ -5,7 +5,8 @@ import { CounterSymbol } from './symbol';
 export const [useModule, CounterActions, getCounterState] = createModule(CounterSymbol)
 // Create Actions Creators
     .withActions({
-        startCount: null, // null means no args
+        incrCount: null, // null means no args
+        decrCount: null, // null means no args
         countDone: (count: number) => ({ payload: { count } }),
     })
     //

@@ -8,14 +8,17 @@ import { CounterActions, getCounterState } from '../interface';
 // NOTE: there are no type annotations, and the below code is 100% type-safe!
 export function Counter() {
     // wrap actions with `dispatch`
-    const { startCount } = useActions(CounterActions);
+    const { incrCount, decrCount } = useActions(CounterActions);
     // get state from store
     const { isLoading, count } = getCounterState.useState();
 
     return (
         <div>
-            <button disabled={isLoading} onClick={startCount}>
+            <button disabled={isLoading} onClick={incrCount}>
                 {isLoading ? 'loading...' : 'increase'}
+            </button>
+            <button disabled={isLoading} onClick={decrCount}>
+                {isLoading ? 'loading...' : 'decrease'}
             </button>
             <div>count: {count}</div>
         </div>
